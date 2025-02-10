@@ -1,0 +1,160 @@
+/*@import "../fonts/fonts.css";*/
+* {
+    font-family: Inter, sans-serif;
+}
+@media print {
+    .hidden-on-print {
+        display: none;
+    }
+}
+
+/*.static-text > * {*/
+/*    margin-bottom: 24px !important;*/
+/*}*/
+.static-text {
+    font-size: 16px;
+    color: #16191D;
+}
+.static-text ol,
+.static-text ul {
+    padding-left: 16px;
+}
+.static-text ul li {
+    list-style: disc;
+    position: relative;
+    color: #707377;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+.static-text ol li {
+    list-style: auto;
+    color: #707377;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+.static-text a {
+    color: #388FF3;
+}
+.static-text a:hover{
+    text-decoration: underline;
+}
+.static-text br {
+    display: inline-block;
+    height: 24px;
+}
+
+.static-text img {
+    width: 100% !important;
+}
+
+.static-text iframe {
+    width: 100% !important;
+}
+
+.static-text b {
+    font-weight: 500;
+}
+
+.static-text h1 {
+    font-size: 28px;
+}
+
+
+.static-text h2 {
+    overflow: hidden;
+    color: #10161C;
+    text-overflow: ellipsis;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36.4px;
+}
+
+.static-text h3 {
+    color: #10161C;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 33.6px;
+}
+
+.static-text h5 {
+    color: #10161C;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22.4px;
+}
+
+.static-text p {
+    color: #707377;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+@media screen and (max-width: 767px){
+    .static-text  {
+        font-size: 14px;
+    }
+
+    .static-text h2 {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .static-text h3 {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .static-text br {
+        height: 12px;
+    }
+}
+/* Apply styles to autofill input field */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:focus-visible,
+input:-webkit-autofill:hover {
+    background-color: transparent !important;
+    border: none;
+    border-radius: 8px !important;
+    color: #16191D !important;
+    -webkit-text-fill-color: #16191D !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    transition: background-color 5000s ease-in-out 0s; /* delay the change of input background color */
+}
+
+input:-moz-placeholder {
+    color: #16191D !important;
+}
+
+input:-ms-input-placeholder {
+    color: #16191D !important;
+}
+
+.red-highlight{
+    position: relative;
+}
+
+.red-highlight span{
+    z-index: 1;
+    position: relative;
+}
+
+.red-highlight::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -4px;
+    width: calc(100% + 8px);
+    height: 16px;
+    background: #F7483B;
+    box-shadow: 0 4px 20px 0 rgba(247, 72, 59, 0.3);
+    z-index: 0;
+}
