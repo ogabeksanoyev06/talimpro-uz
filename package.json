@@ -21,6 +21,7 @@
       "ant-design-vue": "^4.2.6",
       "axios": "^1.7.9",
       "dayjs-nuxt": "^2.1.11",
+      "exceljs": "^4.4.0",
       "maska": "^3.1.0",
       "nuxt": "^3.15.4",
       "pinia": "^2.3.1",

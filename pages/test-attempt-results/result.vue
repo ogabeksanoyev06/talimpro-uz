@@ -114,8 +114,11 @@ const calculateUnselectedAnswers = (questions) => {
       return count + (question.options.every((option) => !option.is_selected) ? 1 : 0);
    }, 0);
 };
-const getDiagnosisResult = (category, totalScore) => {
+const getDiagnosisResult = (category, totalScore, isExceptional) => {
    const rules = diagnosisRules[category];
+   if (isExceptional && totalScore < 60) {
+      return 'Siz yetarlicha ball to‘play olmaganligingiz uchun amaldagi toifangiz o‘zgarishsiz qoladi va sizga yangi sertifikat berilmaydi.';
+   }
    switch (category) {
       case 'highest':
          return totalScore >= rules.passed.minScore ? rules.passed.message : rules.failed.message;
@@ -221,7 +224,7 @@ allQuestions.value = [...results.value.data?.main_test, ...results.value.data?.t
       </a-table>
       <a-card v-if="result.test_type === 'attestation'" class="mt-5 max-w-4xl mx-auto text-center">
          <p class="!text-red-500">
-            {{ getDiagnosisResult(result?.comments?.toifa, result.correct_answers * 2) }}
+            {{ getDiagnosisResult(result?.comments?.toifa, result.correct_answers * 2, result?.comments?.attestation_type === 'extraordinary') }}
          </p>
       </a-card>
 

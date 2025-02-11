@@ -13,7 +13,7 @@
             <a-input v-model:value="formState.school" readonly />
          </a-form-item>
 
-         <a-form-item label="Sinf" name="class" class="mb-0">
+         <a-form-item label="Sinf" name="class" class="mb-0" v-if="userRole === 'pupil'">
             <a-input v-model:value="formState.class" readonly />
          </a-form-item>
 
@@ -31,6 +31,8 @@
 <script setup>
 const profileStore = useProfileStore();
 const { user } = storeToRefs(profileStore);
+
+const userRole = useCookie('role');
 
 const formState = reactive({
    region: user.value?.region || '',

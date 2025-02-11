@@ -1,9 +1,12 @@
 <script setup>
+import { useQueryChange } from '@/composables/useQueryChange';
+
 const universitiesStore = useUniversitiesStore();
 const testStore = useTestStore();
 
 const { fetchUniversitiesBySubjectsIds } = universitiesStore;
 const { fetchAttemptResultById } = testStore;
+const { updateQuery } = useQueryChange();
 
 const route = useRoute();
 const testAttemptId = route.query.testAttemptId;
@@ -16,13 +19,13 @@ const columns = [
       key: '_id',
       width: 80,
       fixed: 'left',
-      sorter: (a, b) => a._id.localeCompare(b._id)
+      sorter: (a, b) => a._id - b._id
    },
    {
       title: 'Universitet',
       dataIndex: 'OTM',
       key: 'OTM',
-      width: 200,
+      width: 400,
       sorter: (a, b) => a.OTM.localeCompare(b.OTM)
    },
    {
@@ -72,13 +75,23 @@ const columns = [
       dataIndex: 'status',
       key: 'status',
       width: 200,
-      sorter: (a, b) => a.duration.localeCompare(b.duration),
       fixed: 'right'
    }
 ];
 
 const subjects = route.query.subjects?.split(',') || [];
 const allQuestions = ref([]);
+
+const search = ref(route.query.search || '');
+
+const onSearch = (searchValue) => {
+   updateQuery('search', searchValue);
+};
+
+const onInputChange = (event) => {
+   const searchValue = event.target.value;
+   updateQuery('search', searchValue);
+};
 
 const { data } = await useAsyncData('test-attempt-results-compare', async () => {
    const [universities, compareResult] = await Promise.all([fetchUniversitiesBySubjectsIds({ subject_1: Number(subjects[0]), subject_2: Number(subjects[1]) }), fetchAttemptResultById(userRole.value, testAttemptId)]);
@@ -88,6 +101,20 @@ const { data } = await useAsyncData('test-attempt-results-compare', async () => 
 const universities = data.value.universities;
 const compareResult = data.value.compareResult;
 allQuestions.value = [...compareResult.data?.main_test, ...compareResult.data?.third_test, ...compareResult.data?.secondary_test];
+
+const filteredUniversities = computed(() => {
+   if (!search.value) return universities;
+   return universities.filter(
+      (university) =>
+         university.OTM.toLowerCase().includes(search.value.toLowerCase()) ||
+         university.dirnm.toLowerCase().includes(search.value.toLowerCase()) ||
+         university.emnm.toLowerCase().includes(search.value.toLowerCase()) ||
+         String(university.grantnm).includes(search.value) ||
+         String(university.contractnm).includes(search.value) ||
+         String(university.ballgr).includes(search.value) ||
+         String(university.ballk).includes(search.value)
+   );
+});
 </script>
 
 <template>
@@ -96,10 +123,18 @@ allQuestions.value = [...compareResult.data?.main_test, ...compareResult.data?.t
          <p class="text-green text-lg font-bold">{{ calculateTotalScore(allQuestions, 'dtm').totalScore }}</p>
          <p class="max-w-[800px] mx-auto">O'tgan yilgi turdosh yo'nalishlar bo'yicha o'tish ballari va siz to'plagan ballga nisbatatan solishtirish natijasi</p>
       </a-card>
-      <a-table :columns="columns" :data-source="universities" :scroll="{ x: 1000 }" class="mt-6">
+      <a-card class="mt-4">
+         <div class="flex flex-wrap justify-between gap-2">
+            <div></div>
+            <a-input-search @input="onInputChange" @search="onSearch" v-model:value="search" placeholder="Qidirish" class=" max-w-[300px]" />
+         </div>
+      </a-card>
+      <a-table :columns="columns" :data-source="filteredUniversities" :scroll="{ x: 1000 }" class="mt-6">
          <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'status'">
-               <span class="text-red-500">Yiqildi</span>
+               <span v-if="record.grantnm > 0 && calculateTotalScore(allQuestions, 'dtm').totalScore >= record.ballgr" class="text-green"> Grant </span>
+               <span v-else-if="record.contractnm > 0 && calculateTotalScore(allQuestions, 'dtm').totalScore >= record.ballk" class="text-orange-500"> Kontrakt </span>
+               <span v-else class="text-red-500">Yiqildi</span>
             </template>
          </template>
       </a-table>

@@ -39,21 +39,46 @@ const customUzLocale = {
    },
    DatePicker: {
       lang: {
+         locale: 'uz-latn',
          placeholder: 'Sanani tanlang',
          rangePlaceholder: ['Boshlanish sanasi', 'Tugash sanasi'],
          today: 'Bugun',
          now: 'Hozir',
+         backToToday: 'Bugunga qaytish',
          ok: 'OK',
          clear: 'Tozalash',
          month: 'Oy',
          year: 'Yil',
-         timeSelect: 'Vaqtni tanlash',
-         dateSelect: 'Sanani tanlash',
-         weekSelect: 'Haftani tanlash',
-         monthSelect: 'Oyni tanlash',
-         yearSelect: 'Yilni tanlash',
-         decadeSelect: 'O‘n yillikni tanlash'
-      }
+         timeSelect: 'Vaqtni tanlang',
+         dateSelect: 'Sanani tanlang',
+         monthSelect: 'Oyni tanlang',
+         yearSelect: 'Yilni tanlang',
+         decadeSelect: 'O‘n yillikni tanlang',
+         yearFormat: 'YYYY',
+         dateFormat: 'DD.MM.YYYY',
+         dayFormat: 'D',
+         dateTimeFormat: 'DD.MM.YYYY HH:mm:ss',
+         monthFormat: 'MMMM',
+         monthBeforeYear: true,
+         previousMonth: 'Oldingi oy',
+         nextMonth: 'Keyingi oy',
+         previousYear: 'Oldingi yil',
+         nextYear: 'Keyingi yil',
+         previousDecade: 'Oldingi o‘n yillik',
+         nextDecade: 'Keyingi o‘n yillik',
+         previousCentury: 'Oldingi asr',
+         nextCentury: 'Keyingi asr',
+         monthNames: ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
+         shortMonthNames: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun', 'Iyul', 'Avg', 'Sen', 'Okt', 'Noy', 'Dek'],
+         shortWeekDays: ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Jum', 'Shan']
+      },
+      timePickerLocale: {
+         placeholder: 'Vaqtni tanlang'
+      },
+      dateFormat: 'YYYY-MM-DD',
+      dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
+      weekFormat: 'YYYY-wo',
+      monthFormat: 'YYYY-MM'
    },
    Modal: {
       okText: 'OK',
@@ -70,6 +95,7 @@ const customUzLocale = {
       itemsUnit: 'elementlar'
    }
 };
+
 const themeConfig = ref({
    token: {
       colorPrimary: '#512bd4',

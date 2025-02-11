@@ -41,7 +41,6 @@ const handleSubmitForm = async () => {
       showToast('Test muvaffaqiyatli boshlandi!', 'success');
    } catch (error) {
       showToast('Sizda tugallanmagan test mavjud!', 'info');
-      console.log(error._data);
       const redirectUrl = `/test/${testType}/${error._data?.data?.active_test_id}`;
       router.push(redirectUrl);
    } finally {

@@ -3,14 +3,13 @@ export default defineNuxtConfig({
    ssr: false,
    app: {
       pageTransition: { name: 'page-change', mode: 'out-in' },
-      layoutTransition: { name: 'page-change', mode: 'out-in' },
       head: {
-         title: 'TalimPro',
+         title: "Ta'limPro",
          link: [
             {
                rel: 'icon',
                type: 'image/x-icon',
-               href: '/favicon.svg'
+               href: '/images/svg/logo-x-dark.svg'
             }
          ]
       }
@@ -32,6 +31,10 @@ export default defineNuxtConfig({
    ],
    antd: {
       extractStyle: true
+   },
+   dayjs: {
+      locales: ['uz-latn'],
+      defaultLocale: 'uz-latn'
    },
    css: ['ant-design-vue/dist/reset.css', '@/assets/css/tailwind.css'],
    build: {
